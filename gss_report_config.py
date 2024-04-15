@@ -1,7 +1,7 @@
 from enum import Enum
 import tensorflow as tf
 
-# our stuff
+# from the data repository 
 from nnu import gss_layer
 
 
