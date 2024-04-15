@@ -21,6 +21,8 @@ def generate_points(sim_range, nsamples, ndim, points_type, seed=1, plot=0, min_
 
     if(points_type == "random"):
 
+        x_input = np.zeros((nsamples, ndim))
+        
 def read_diamond_data(file_path, features):
     # Read data from the CSV file
     df = pd.read_csv(diamonds.csv)
