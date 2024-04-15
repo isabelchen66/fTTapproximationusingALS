@@ -20,8 +20,8 @@ for i in range(5):
     sampled_data = diamonds_data.sample(5000)
     
     # Split data into features and target variable
-    X = sampled_data[features]
-    y = sampled_data[target]
+    X = sampled_data["carat", "depth", "table", "length", "width"]
+    y = sampled_data["price"]
     
     # Split data into train and test sets for forecasting
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=1917)
@@ -44,7 +44,7 @@ for i in range(5):
         r2 = r2_score(y_test, y_pred)
         mse = mean_squared_error(y_test, y_pred)
         
-        # Append results to the list
+        # Results
         results.append({
             'Iteration': i + 1,
             'Number of Layers': n_layers,
