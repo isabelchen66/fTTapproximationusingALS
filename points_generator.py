@@ -21,21 +21,18 @@ def generate_points(sim_range, nsamples, ndim, points_type, seed=1, plot=0, min_
 
     if(points_type == "random"):
 
-       def read_diamond_data(file_path, features):
+def read_diamond_data(file_path, features):
     # Read data from the CSV file
-    df = pd.read_csv(file_path)
+    df = pd.read_csv(diamonds.csv)
     
-    # Select only the specified features and the target variable ("price")
-    df_selected = df[features + ["price"]]
+    # Select the five independent variables and the dependent variable ("price")
+    df_selected = df["carat", "depth", "table", "length", "width" + ["price"]]
     
-    # Normalize the selected features
-    normalized_features = (df_selected - df_selected.min()) / (df_selected.max() - df_selected.min())
-    
-    # Convert the normalized features to a numpy array
-    x_input = normalized_features.values[:, :-1]  # Exclude the target variable
+   # Convert the selected features to a numpy array
+    x_input = df_selected["carat", "depth", "table", "length", "width"].values
     
     # Extract the target variable ("price")
-    y_output = normalized_features.values[:, -1]  # Last column represents "price"
+    y_output = df_selected["price"].values
     
     return x_input, y_output
 
