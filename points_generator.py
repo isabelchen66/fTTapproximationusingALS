@@ -21,13 +21,23 @@ def generate_points(sim_range, nsamples, ndim, points_type, seed=1, plot=0, min_
 
     if(points_type == "random"):
 
-        x_input = np.zeros((nsamples, ndim))
-        soboleng = torch.quasirandom.SobolEngine(
-            dimension=ndim, scramble=True, seed=seed)
-        x_input = soboleng.draw(nsamples).cpu().detach().numpy()
-        x_input = (sim_range[1]-sim_range[0])*x_input+sim_range[0]
-
-        out.append(x_input)
+       def read_diamond_data(file_path, features):
+    # Read data from the CSV file
+    df = pd.read_csv(file_path)
+    
+    # Select only the specified features and the target variable ("price")
+    df_selected = df[features + ["price"]]
+    
+    # Normalize the selected features
+    normalized_features = (df_selected - df_selected.min()) / (df_selected.max() - df_selected.min())
+    
+    # Convert the normalized features to a numpy array
+    x_input = normalized_features.values[:, :-1]  # Exclude the target variable
+    
+    # Extract the target variable ("price")
+    y_output = normalized_features.values[:, -1]  # Last column represents "price"
+    
+    return x_input, y_output
 
     elif points_type == "regular":
 
